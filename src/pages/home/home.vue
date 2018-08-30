@@ -11,34 +11,11 @@
         infinite-scroll-distance="10">
         <li v-for="item in list">{{ item }}</li>
         </ul> -->
-        
         <HeaderView :ptitle='pageTitle'></HeaderView>
-        <div class='search'>
-            <mt-search v-model="value">
-                <mt-cell
-                    v-for="item in result"
-                    :title="item.title"
-                    :value="item.value">
-                </mt-cell>
-            </mt-search>
-        </div>
+        <router-view></router-view>
+        <!-- <router-link to="/shop">to shop</router-link> -->
         
-        <SortImg></SortImg>
-        
-        <IndexAd></IndexAd>
-
-        <div style='display:block;text-align:center'>--推荐商家--</div>
-        <shop-fiter></shop-fiter>
-        
-        <ShopView></ShopView>
-        <!-- <mt-palette-button content="+" @expand="main_log('expand')" @expanded="main_log('expanded')" @collapse="main_log('collapse')"
-      direction="rt" class="pb" :radius="80" ref="target_1" mainButtonStyle="color:#fff;background-color:#26a2ff;"
-      style="left:30px;">
-            <div class="my-icon-button indexicon icon-popup" @touchstart="sub_log(1)"></div>
-            <div class="my-icon-button indexicon icon-popup" @touchstart="sub_log(2)"></div>
-            <div class="my-icon-button indexicon icon-popup" @touchstart="sub_log(3)"></div>
-        </mt-palette-button> -->
-        
+        <FooterView></FooterView>
     </div>
 </template>
 
@@ -46,10 +23,6 @@
 // import Header from '../../components/header'
 import HeaderView from '../../components/headerView'
 import FooterView from '../../components/footerView.vue'
-import ShopView from '../../components/shopView.vue'
-import ShopFiter from '../../components/shopfilter'
-import SortImg from '../../components/sortImg'
-import IndexAd from '../../components/adindex'
 
 export default {
     props:[],
@@ -68,10 +41,10 @@ export default {
         // Header
         HeaderView,
         FooterView,
-        ShopView,
-        ShopFiter,
-        SortImg,
-        IndexAd
+        // ShopView,
+        // ShopFiter,
+        // SortImg,
+        // IndexAd
     },
     methods:{
         loadMore() {

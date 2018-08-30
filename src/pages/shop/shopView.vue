@@ -1,8 +1,5 @@
 <template>
     <div>
-        <nav>
-            shop
-        </nav>
         <mt-navbar v-model="selected">
             <mt-tab-item id="1">点餐</mt-tab-item>
             <mt-tab-item id="2">评论</mt-tab-item>
