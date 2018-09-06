@@ -1,10 +1,12 @@
 <template>
     <div class='order_wrap'>
-        <!-- <Header title='订单'>
-            <img src="../../assets/img/goback.svg" slot='goback' alt="">
-            <img src="../../assets/img/setting.svg" slot='set' alt="">
-        </Header> -->
         <HeaderView :ptitle='pageTitle'></HeaderView>
+        <div class='unlogin_container' v-show='!is_login'><!-- 未登录状态 -->
+            <img src="../../assets/img/unlogin.png" alt="">
+            <span>登录后查看外卖订单</span>
+            <mt-button size="normal" type="primary" @click='toLogin'>立即登陆</mt-button>
+        </div>
+        <div v-show="is_login">
         <div>历史订单</div>
         <div class='order_history'>
             <div class='order_row'>
@@ -29,6 +31,7 @@
             </div>
         </div>
         <div class='history_btm'>仅显示近一年外卖订单</div>
+        </div>
     </div>
 </template>
 <script>
@@ -38,7 +41,15 @@ import HeaderView from '../../components/headerView'
 export default {
     data(){
         return{
-            pageTitle:'订单'
+            pageTitle:'订单',
+            is_login:false,
+        }
+    },
+    created(){
+    },
+    methods:{
+        toLogin(){
+            this.$router.push('login')
         }
     },
     components:{
@@ -47,6 +58,7 @@ export default {
     }
 }
 </script>
+
 <style lang='scss' scoped>
 $bg_color:#ffffff;
 $ct:center;
@@ -55,6 +67,16 @@ $sum_color:#777;
 .order_wrap{ 
     background:$bg_color;
     margin-top:-20px;
+    .unlogin_container{
+        background: #f5f5f5;
+        display: flex;
+        flex-direction: column;
+        justify-content:space-around;
+        align-items:center;
+        height:44vh;
+        margin-top:20vh;
+        img{ width:50%; }
+    }
     .order_row{
         padding:2vh 2vh 0 2vh;
         border-bottom:solid 12px #f2f2f2;

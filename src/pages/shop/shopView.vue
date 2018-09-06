@@ -1,71 +1,45 @@
 <template>
     <div>
+        <div class='shop_bg'>
+            <div class='shop_logo'><img :src="shop.sh_logo" alt=""></div>
+            <span class='shop_title'>{{shop.sh_name}}</span>
+            <span>评论{{shop.rate}} 月售{{shop.sold_month}} 蜂鸟专送约{{shop.distance}}</span>
+            <div class='disc_note'>
+                <span class='act_dis'>
+                    <div class="discount">
+                        <span class='disct_first'></span>
+                        <span>本店新客户立减1元</span>
+                    </div>
+                </span>
+                <span class='notice'>公告：{{shop.shop_note}}</span>
+            </div>
+        </div>
         <mt-navbar v-model="selected">
             <mt-tab-item id="1">点餐</mt-tab-item>
             <mt-tab-item id="2">评论</mt-tab-item>
             <mt-tab-item id="3">商家</mt-tab-item>
         </mt-navbar>
 
+        
+        
         <!-- tab-container -->
         <mt-tab-container v-model="selected">
             <mt-tab-container-item id="1">
                 <!-- <mt-cell v-for="n in 10" :title="'内容 ' + n" /> -->
                 <div class='recommend'>
-                    <p>商家推荐</p>
+                    <div class='shop_banner'>
+                        <img :src="shop.shop_banner" >
+                    </div>
+                    <p class='recom_head'>商家推荐</p>
                     <div class='rec_list'>
                         <ul>
-                            <li>
-                                <img src="../../assets/logo.png" alt="">
-                                <p class='rec_title'>甜味豆浆</p>
-                                <p class='rec_soldout'>月售1023 好评率100%</p>
+                            <li v-for='i in recom_food'>
+                                <img :src="i.f_img_md" alt="">
+                                <p class='rec_title'>{{i.f_name}}</p>
+                                <p class='rec_soldout'>月售{{i.sold_count}} 好评率100%</p>
                                 <div class='buy_rec'>
                                     <div>
-                                        <span class='price_rec'>6 </span><span class='rec_base_price'>起</span>
-                                    </div>
-                                    <span class='action_rec_btn'>
-                                        <a href="#"><span class='del_rec'>-</span></a>
-                                        <span class='buy_count'>1</span>
-                                        <a href="#"><span class='add_rec'>+</span></a>
-                                    </span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="../../assets/logo.png" alt="">
-                                <p class='rec_title'>甜味豆浆</p>
-                                <p class='rec_soldout'>月售1023 好评率100%</p>
-                                <div class='buy_rec'>
-                                    <div>
-                                        <span class='price_rec'>6 </span><span class='rec_base_price'>起</span>
-                                    </div>
-                                    <span class='action_rec_btn'>
-                                        <a href="#"><span class='del_rec'>-</span></a>
-                                        <span class='buy_count'>1</span>
-                                        <a href="#"><span class='add_rec'>+</span></a>
-                                    </span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="../../assets/logo.png" alt="">
-                                <p class='rec_title'>甜味豆浆</p>
-                                <p class='rec_soldout'>月售1023 好评率100%</p>
-                                <div class='buy_rec'>
-                                    <div>
-                                        <span class='price_rec'>6 </span><span class='rec_base_price'>起</span>
-                                    </div>
-                                    <span class='action_rec_btn'>
-                                        <a href="#"><span class='del_rec'>-</span></a>
-                                        <span class='buy_count'>1</span>
-                                        <a href="#"><span class='add_rec'>+</span></a>
-                                    </span>
-                                </div>
-                            </li>
-                            <li>
-                                <img src="../../assets/logo.png" alt="">
-                                <p class='rec_title'>甜味豆浆</p>
-                                <p class='rec_soldout'>月售1023 好评率100%</p>
-                                <div class='buy_rec'>
-                                    <div>
-                                        <span class='price_rec'>6 </span><span class='rec_base_price'>起</span>
+                                        <span class='price_rec'>{{i.min_p}} </span><span class='rec_base_price'>起</span>
                                     </div>
                                     <span class='action_rec_btn'>
                                         <a href="#"><span class='del_rec'>-</span></a>
@@ -98,90 +72,38 @@
                         <dl>
                             <dt>
                                 <strong class='sort_tag'>热销</strong>
-                                <span>大家都喜欢</span>
+                                <span>大家都喜欢1</span>
                             </dt>
+                            <dd v-for='i in foodlist' :key='i.fid'>
+                                <div class='food_show'>
+                                    <span class="food_img" > <img :src="i.f_img_sm" alt=""></span>
+                                    <section class='food_info'>
+                                        <p class='food_name'>{{i.f_name}}</p>
+                                        <p class='food_sub'>{{i.summary}}</p>
+                                        <p class='food_sub'><span>月售{{i.sold_count}}份</span><span>好评率99%</span></p>
+                                        <div class='food_act'>
+                                            <span>每单限{{i.max_p}}份优惠</span>
+                                            <span class='rest'>剩{{i.rest_count}}份</span>
+                                        </div>
+                                        <section>
+                                            <span class='price'>
+                                                <span>{{i.min_p}}</span>
+                                                <span class='sale_base'>起</span>
+                                                <del class='old_price'>{{i.old_price}}</del>
+                                            </span>
+                                            <div class='active_btn'>
+                                                <div class='del_cart'><a href='#'>-</a></div>
+                                                <span>1</span>
+                                                <div class='add_cart'><a href="#">+</a></div>
+                                            </div>
+                                        </section>
+                                    </section>
+                                </div>
+                            </dd>
                             
-                            <dd>
-                                <div class='food_show'>
-                                    <span class="food_img" > <img src="../../assets/logo.png" alt=""></span>
-                                    <section class='food_info'>
-                                        <p class='food_name'>世界杯单人套餐</p>
-                                        <p class='food_sub'>每份锅贴配1包酱包，可加醋加辣，加盐加糖</p>
-                                        <p class='food_sub'><span>月售3690份</span><span>好评率99%</span></p>
-                                        <div class='food_act'>
-                                            <span>每份限1份优惠</span>
-                                            <span class='rest'>剩10份</span>
-                                        </div>
-                                        <section>
-                                            <span class='price'>
-                                                <span>10</span>
-                                                <span class='sale_base'>起</span>
-                                                <del class='old_price'>51</del>
-                                            </span>
-                                            <div class='active_btn'>
-                                                <div class='del_cart'><a href='#'>-</a></div>
-                                                <span>1</span>
-                                                <div class='add_cart'><a href="#">+</a></div>
-                                            </div>
-                                        </section>
-                                    </section>
-                                </div>
-                            </dd>
-                            <dd>
-                                <div class='food_show'>
-                                    <span class="food_img"> <img src="../../assets/logo.png" alt=""></span>
-                                    <section class='food_info'>
-                                        <p class='food_name'>世界杯单人套餐</p>
-                                        <p class='food_sub'>每份锅贴配1包酱包，可加醋加辣，加盐加糖</p>
-                                        <p class='food_sub'><span>月售3690份</span><span>好评率99%</span></p>
-                                        <div class='food_act'>
-                                            <span>每份限1份优惠</span>
-                                            <span class='rest'>剩10份</span>
-                                        </div>
-                                        <section>
-                                            <span class='price'>
-                                                <span>10</span>
-                                                <span class='sale_base'>起</span>
-                                                <del class='old_price'>51</del>
-                                            </span>
-                                            <div class='active_btn'>
-                                                <div class='del_cart'><a href='#'>-</a></div>
-                                                <span>1</span>
-                                                <div class='add_cart'><a href="#">+</a></div>
-                                            </div>
-                                        </section>
-                                    </section>
-                                </div>
-                            </dd>
-                            <dd>
-                                <div class='food_show'>
-                                    <span class="food_img"> <img src="../../assets/logo.png" alt=""></span>
-                                    <section class='food_info'>
-                                        <p class='food_name'>世界杯单人套餐</p>
-                                        <p class='food_sub'>每份锅贴配1包酱包，可加醋加辣，加盐加糖</p>
-                                        <p class='food_sub'><span>月售3690份</span><span>好评率99%</span></p>
-                                        <div class='food_act'>
-                                            <span>每份限1份优惠</span>
-                                            <span class='rest'>剩10份</span>
-                                        </div>
-                                        <section>
-                                            <span class='price'>
-                                                <span>10</span>
-                                                <span class='sale_base'>起</span>
-                                                <del class='old_price'>51</del>
-                                            </span>
-                                            <div class='active_btn'>
-                                                <div class='del_cart'><a href='#'>-</a></div>
-                                                <span>1</span>
-                                                <div class='add_cart'><a href="#">+</a></div>
-                                            </div>
-                                        </section>
-                                    </section>
-                                </div>
-                            </dd>
                         <dt>
                             <strong class='sort_tag'>热销</strong>
-                            <span>大家都喜欢</span>
+                            <span>大家都喜欢2</span>
                         </dt>
                             <dd>
                                 <div class='food_show'>
@@ -237,7 +159,7 @@
                             </dd>
                             <dt>
                             <strong class='sort_tag'>热销</strong>
-                            <span>大家都喜欢</span>
+                            <span>大家都喜欢3</span>
                         </dt>
                             <dd>
                                 <div class='food_show'>
@@ -312,22 +234,58 @@ import {base64} from 'js-base64';
 export default {
     data(){
         return{
+            ptitle:"商铺",
             selected:'1',
             target:'烧烤',
-            food_sort:['烧烤','炒菜','凉菜','面食','酱料','浇头','配菜'],
-            list:['花生','瓜子','矿泉水','啤酒','饮料','小板凳']
+            food_sort:[],
+            recom_food:[],
+            list:['花生','瓜子','矿泉水','啤酒','饮料','小板凳'],
+            //从首页shoplist 传来的值
+            id:this.$route.params.id,
+            shop:'',
+            foodlist:[],
         }
     },
+    created(){
+        // console.log(this.id);
+        this.getShopInfo(this.id);
+        this.foodList(this.id);
+    },
     methods:{
-        loadMore() {
-        this.loading = true;
-        setTimeout(() => {
-            let last = this.list[this.list.length - 1];
-            for (let i = 1; i <= 10; i++) {
-            this.list.push(last + i);
-            }
-            this.loading = false;
-        }, 2500);
+        // loadMore() {
+        //     this.loading = true;
+        //     setTimeout(() => {
+        //         let last = this.list[this.list.length - 1];
+        //         for (let i = 1; i <= 10; i++) {
+        //         this.list.push(last + i);
+        //         }
+        //         this.loading = false;
+        //     }, 2500);
+        // },
+        getShopInfo(id){
+            var url =`http://127.0.0.1:3001/shop?id=`+id;
+            this.$http.get(url).then(result=>{
+                if(result.body.code==1){
+                    console.log(result.body.msg);
+                    this.shop = result.body.msg[0];
+                }
+            })
+        },
+        foodList(id){
+            var url =`http://127.0.0.1:3001/foodlist?id=`+id;
+            this.$http.get(url).then(result=>{
+                if(result.body.code==1){
+                    console.log('foodlist',result.body.msg);
+                    this.foodlist=this.foodlist.concat(result.body.msg);
+                    
+                    for(var i in this.foodlist){
+                        this.food_sort.push(this.foodlist[i].f_sort);   //把数据中的 食品分类 添加到数组中
+                        if(this.foodlist[i].is_recom)
+                        this.recom_food.push(this.foodlist[i]);    //添加到 本店推荐 数组中
+                    }
+                    console.log('recom',this.recom_food);
+                }
+            })
         }
     }
 }
@@ -335,24 +293,65 @@ export default {
 
 
 <style lang='scss'>
+$bg_color:#fff;
 // 商家推荐
+.shop_bg{
+    background-color:$bg_color;
+    display: flex;
+    flex-direction:column;
+    align-items:center;
+    .shop_logo{
+        width:20vw;
+        img{width:100%;}
+    }
+    .shop_title{
+        text-align: center;
+        color:#333;
+        font-size:18px;
+        font-weight: 600;
+        padding:10px 0;
+    }
+    .disc_note{
+        width:78%;
+        display: flex;
+        flex-direction: column;
+    }
+    span{
+        color:#999;
+        font-size:12px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+.shop_banner{
+    background: $bg_color;
+    width:94%;
+    padding:3% 3%;
+    margin-top:3px;
+    text-align: center;
+    img{
+        width:100%
+    }
+}
 .recommend{
-    background: #fff;
+    background: $bg_color;
     width: 100vw;
+    p.recom_head{ font-weight: 600;text-indent: 1em;}
     .rec_list{
         width:100%;
         ul{
             display: flex;
+            overflow-x: auto;
         }
         ul,ul li{
             list-style: none;
+            padding:0 2.4vw 2vw 0;
         }
         li:first-child{
             margin-left: 2.4vw;
         }
         li{
-            // display: inline;
-            // float: left;
             margin:2.4vw 2.4vw 0 0;
             padding-bottom: 4vw;
             width: 34vw;
@@ -362,11 +361,12 @@ export default {
             width:34vw;
         }
         .rec_title{
-            font-size: 1rem;
+            font-size: .8rem;
         }
         .rec_soldout{
             color:#999;
             font-size:.24rem;
+            line-height: 1rem;
         }
         .buy_rec{
             display: flex;
@@ -394,7 +394,7 @@ export default {
                 width:1.2rem;
             }
             .del_rec{
-                background: #fff;
+                background:$bg_color;
                 border:1px solid #3190e8;
                 color:#3190e8;
             }
@@ -414,7 +414,7 @@ export default {
 }
 // 商品列表
 .food{
-    background: #fff;
+    background: $bg_color;
     width: 100%;
     display: flex;
     .food_sort{
@@ -533,7 +533,7 @@ export default {
                 width:1.3rem;
             }
             .del_cart a{
-                background: #fff;
+                background: $bg_color;
                 color:#3190e8;
                 font-size:2rem;
             }
@@ -543,11 +543,11 @@ export default {
 }
 // 订单列表
 .order_list_fold,.order_list_expand{
-    background: #fff;
+    background: $bg_color;
     position:fixed;
     bottom:26vw; 
     left:0;right:0;
-    
+    bottom:0;
 }
 .order_list_expand{
     position:fixed;

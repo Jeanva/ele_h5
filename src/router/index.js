@@ -7,6 +7,7 @@ import Order from '../pages/order/order.vue'
 import User from '../pages/user/user.vue'
 import ShopView from '../pages/shop/shopView.vue'
 import HomeView from '../components/homeview.vue'
+import Login from "../pages/login/login"
 
 Vue.use(Router)
 
@@ -27,13 +28,7 @@ export default new Router({
           component:HomeView
         },
         {
-          path:'/home',
-          name:'home',
-          component:HomeView
-        },
-        
-        {
-          path: '/order',
+          path: '/order:id',
           name: 'Order',
           component: Order
         },
@@ -44,6 +39,11 @@ export default new Router({
         },
       ]
     },  
+    {
+      path:'/login',
+      name:'login',
+      component:Login
+    },
     {
       path:'/shop',
       name:'Shop',

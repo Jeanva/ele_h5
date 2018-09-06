@@ -1,16 +1,10 @@
 <template>
     <section class='adIndex_row'>
-        <div class='adIndex_item'>
-            <div class='title'>品质套餐</div>
-            <div class='subtitle'>搭配齐全吃得好</div>
-            <div class='getnow'>立即抢购</div>
-            <img src="../assets/logo.png" alt="" />
-        </div>
-        <div class='adIndex_item'>
-            <div class='title'>品质套餐</div>
-            <div class='subtitle'>搭配齐全吃得好</div>
-            <div class='getnow'>立即抢购</div>
-            <img src="../assets/logo.png" alt="" />
+        <div class='adIndex_item' v-for='i in subbanner'>
+            <div class='title'>{{i.tag}}</div>
+            <div class='subtitle'>{{i.sub_tag}}</div>
+            <div class='getnow'>{{i.tag}}</div>
+            <img :src="i.img_url" alt="" />
         </div>
     </section>
 </template>
@@ -18,10 +12,12 @@
 <script>
 export default {
     data(){
-        return{
-           ad:[ {title:'品质套餐',subtitle:'搭配齐全吃得好',active:'立即抢购',url:'../assets/logo.png'}]
-        }
-    }
+        return{}
+    },
+    created(){
+        //  console.log(this.subbanner);     //子banner
+    },
+    props:["subbanner"]
 }
 </script>
 
@@ -44,7 +40,6 @@ $bg_color:#fff;
         font-size: 1.2rem;
         font-weight: 700;
     }
-    
     .subtitle,.getnow{
         color:#999;
         font-size:.9rem;
@@ -62,7 +57,7 @@ $bg_color:#fff;
         position: absolute;
         right:0;
         bottom: 0;
-        width: 20vw;
+        width: 30vw;
     }
 }
 .adIndex_item:last-child{

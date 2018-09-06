@@ -1,29 +1,14 @@
 <template>
     <div>
-        <!-- <Header title='地址'>
-            <img src="../../assets/img/goback.svg" slot='goback' alt="">
-            <img src="../../assets/img/setting.svg" slot='set' alt="">
-        </Header> -->
         
-        <!-- <ul
-        v-infinite-scroll="loadMore"
-        infinite-scroll-disabled="loading"
-        infinite-scroll-distance="10">
-        <li v-for="item in list">{{ item }}</li>
-        </ul> -->
-        <HeaderView :ptitle='pageTitle'></HeaderView>
-        <router-view></router-view>
-        <!-- <router-link to="/shop">to shop</router-link> -->
-        
+        <!-- 统一头部 -->
+        <!-- <HeaderView :ptitle='pageTitle'></HeaderView> -->
+        <router-view></router-view>        
         <FooterView></FooterView>
     </div>
 </template>
 
 <script>
-// import Header from '../../components/header'
-import HeaderView from '../../components/headerView'
-import FooterView from '../../components/footerView.vue'
-
 export default {
     props:[],
     data(){
@@ -38,9 +23,7 @@ export default {
         }
     },
     components:{
-        // Header
-        HeaderView,
-        FooterView,
+        // FooterView,
         // ShopView,
         // ShopFiter,
         // SortImg,

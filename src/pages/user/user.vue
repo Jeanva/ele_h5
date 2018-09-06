@@ -1,16 +1,12 @@
 <template>
     <div id='box'>
-        <!-- <Header title='我的'>
-            <img src="../../assets/img/goback.svg" slot='goback' alt="">
-            <img src="../../assets/img/setting.svg" slot='set' alt="">
-        </Header> -->
         <HeaderView :ptitle='pageTitle'></HeaderView>
         <div class='login'>
             <div>
                 <div class='logo_elm'><img src="../../assets/img/elm.svg" alt=""></div>
             </div>
             <div>
-                <p class='register'>登录/注册</p>
+                <router-link class='register' to='/login'>登录/注册</router-link>
                 <p class='priv'>
                     <img src='../../assets/img/phone.svg'>
                     登录后享受更多特权
@@ -150,6 +146,7 @@ export default {
     margin-left:20px;
 }
 .login .register{
+    color:#fff;
     font-size:1.4rem;
 }
 .login .logo_elm{
