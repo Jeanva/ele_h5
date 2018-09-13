@@ -56,7 +56,9 @@
                     
                     <div class='food_sort'>
                         <ul v-model='target'>
-                            <li class='sort_item' v-for='item in food_sort' id='item.i'>{{item}}</li>
+                            <li class='sort_item' v-for='item in food_sort' id='item.i'>
+                                <router-link to='#'>{{item}}</router-link>
+                            </li>
                         </ul>
                     </div>
                     
@@ -239,7 +241,7 @@ export default {
             target:'烧烤',
             food_sort:[],
             recom_food:[],
-            list:['花生','瓜子','矿泉水','啤酒','饮料','小板凳'],
+            // list:['花生','瓜子','矿泉水','啤酒','饮料','小板凳'],
             //从首页shoplist 传来的值
             id:this.$route.params.id,
             shop:'',
@@ -263,7 +265,7 @@ export default {
         //     }, 2500);
         // },
         getShopInfo(id){
-            var url =`http://127.0.0.1:3001/shop?id=`+id;
+            var url =`http://127.0.0.1:3001/home/shoplist?id=`+id;
             this.$http.get(url).then(result=>{
                 if(result.body.code==1){
                     console.log(result.body.msg);

@@ -49,7 +49,16 @@ Vue.use(Vuex);
 var store= new Vuex.Store({
   state:{
     //专门用来保存共享数据，相当于组件data
+    //如果在组件中操作 用 this.$store.state.***
   },
+  mutations:{
+    //操作共享数据，只能用mutations提供的方法
+    //如果组件要使用mutations定义的方法，只能使用 this.$store.commit('函数名');
+  },
+  getters:{
+    //getters只提供数据，不修改数据
+    //在组件模板中 {{this.$getters.***}}
+  }
 });
 
 /* eslint-disable no-new */

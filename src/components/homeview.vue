@@ -18,8 +18,12 @@
         </mt-swipe>
         </div>
 
-        <div class="recommend_shop" style=''>—  推荐商家  —</div>
-        <shop-fiter></shop-fiter>
+        <div class="recommend_shop">—  推荐商家  —</div>
+        <shop-fiter 
+            @distance='filter_dis' 
+            @rate='filter_rate' 
+            @price='filter_price'>
+        </shop-fiter>   <!--从兄弟组件中获得传值-->
         <ShopView :shops='shoplist'></ShopView>
     </div>
 </template>
@@ -29,6 +33,7 @@ import ShopView from './shopView.vue'
 import ShopFiter from './shopfilter'
 import SortImg from './sortImg'
 import IndexAd from './adindex'
+
 
 export default {
      data(){
@@ -60,8 +65,6 @@ export default {
                 if(result.body.code ==1){
                     // console.log('banner',result.body.msg)
                     this.bannerlist=this.bannerlist.concat(result.body.msg);
-                }else{
-                    // console.log("banner加载失败");
                 }
             });
         },
@@ -95,8 +98,31 @@ export default {
             this.$http.get(url).then(result=>{
                 if(result.body.code == 1 )
                  this.shoplist=this.shoplist.concat(result.body.msg);
-                //  console.log(this.shoplist);
+                 console.log('homeview shoplist',this.shoplist);
             });
+        },
+        //按距离排列
+        byDistance(a,b){
+            return a.distance-b.distance;
+        },  
+        filter_dis(){
+            this.shoplist.sort(this.byDistance);
+            // Bus.$emit('distanceSort',this.shoplist);
+            console.log('distanceSort',this.shoplist);
+        },
+        byRate(b,a){
+            return a.star-b.star;
+        },
+        filter_rate(){
+            this.shoplist.sort(this.byRate);
+            console.log('RateSort',this.shoplist);
+        },
+        byPrice(a,b){
+            return a.min_price-b.min_price;
+        },
+        filter_price(){
+            this.shoplist.sort(this.byPrice);
+            console.log('filter_price');
         }
     },
     components:{

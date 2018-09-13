@@ -1,13 +1,13 @@
 <template>
     <div>
     <div class='shopfilter'>
-        <div :class="{select:true,chooseOn:showRank}" :rid=1  @click='chooseRank'>综合排序 
+        <div :class="{select:true,chooseOn:showRank}" :rid=1  @click='chooseRank'>{{rankType[0].title}} 
             <span>
                 <img src="../assets/img/expand.svg" alt="">
             </span>
         </div>
-        <div :rid=2 data-rid='2' @mousedown='getChange'>好评优先</div>
-        <div :rid=3 data-rid='3' @mousedown='getChange'>距离最近</div>
+        <div :rid=2 data-rid='2' @mousedown='getChange' @click='receiveFun("rate")'>好评优先</div>
+        <div :rid=3 data-rid='3' @click='receiveFun("distance")'>距离最近</div>
         <div  :class="{select:true,chooseOn:showFilter}" :rid=4 data-rid='4' @mousedown='getChange' @click='filterShop'>筛选 <span><img src="../assets/img/filter.svg" alt=""></span></div>
         <!-- <div :class='{select:true,chooseOn:showRank}' v-for='item in rankType'
             @click='item.fn'
@@ -15,7 +15,8 @@
     </div>
     <div class='ranking' v-show='showRank'>
         <ul>
-            <li v-for='item in li'>{{item}}</li>
+            <!-- <li v-for='item in li' @click='SortWay(item.tag)' >{{item.title}}</li> -->
+            <li v-for='(item,index) in li' @click='SortWay(item,index)'>{{item.title}}</li>
         </ul>
     </div>
     <div class='shopfilting' v-show='showFilter'>
@@ -58,10 +59,10 @@
     </div>
     </div>
     
-    
 </template>
 <script>
 // import SVG from '../assets/svg/svg'
+import Bus from '../Bus'
 export default {
     components:{
         // SVG
@@ -71,27 +72,62 @@ export default {
             showRank:false,
             showFilter:false,
             mark:'',
-            rankType:[{title:'综合排序',fn:this.chooseRank()},
+            rankType:[
+            {title:'综合排序',fn:this.chooseRank()},
             {title:'好评优先',fn:''},
             {title:'距离最近',fn:''},
-            {title:'筛选',fn:''}],
-            li:['综合排序','销量最高','起送价最低','配送最快','配送费最低','人均从低到高','人均从高到低']
+            {title:'筛选',fn:''}    ],
+            //食物分类
+            li:[
+                {'title':'综合排序','tag':'all'},
+                {'title':'销量最高','tag':'soldout'},
+                {'title':'起送价最低','tag':'price'},
+                {'title':'配送最快','tag':'deliv_spd'},
+                {'title':'配送费最低','tag':'deliv_fee'},
+                {'title':'人均从低到高','tag':'average'},
+                {'title':'人均从高到低','tag':'average_high'}],
+            shopList:[],
         }
+    },
+    created(){
+        Bus.$on('shoplist',content=>{
+            console.log('shopfilter接收到兄弟组件传值',content);
+            this.shopList = this.shopList.concat(content);
+        });
     },
     methods:{
         chooseRank(){
+            this.showFilter = false;
             this.showRank=!this.showRank;
-            console.log(this.showRank);
         },
         filterShop(){
             this.showFilter=!this.showFilter;
-            console.log('this.showFilter',this.showFilter);
+            this.showRank = false;
         },
         getChange(e){
             // this.mark=rid;
-            // console.log(e);
-        }
-    }
+            console.log(e);
+        },
+        //子组件触发事件
+        receiveFun(i){
+            this.showFilter = false;
+            this.showRank = false;
+            console.log('按'+i+'排序');
+            // this.$emit('distance');
+            this.$emit(i);
+        },
+        SortWay(i,index){
+            this.showFilter=false;
+            this.showRank =false;
+            this.rankType[0].title=this.li[index].title;
+            console.log('this.rankType',this.rankType);
+            // var tmp= this.li[0];
+            // this.li[0]=i;
+            // this.li[index]=tmp;
+            this.$emit(i.tag);
+        },
+    },
+    watch:{}
 }   
 </script>
 
@@ -110,6 +146,7 @@ $select_color:#333;
     display: flex;
     justify-content: space-between;
     height: 50px;
+    font-size:.9rem;
     line-height: $font_size;
     padding:0 1rem;
     position: relative;

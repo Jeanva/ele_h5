@@ -5,7 +5,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Home from '../pages/home/home.vue'
 import Order from '../pages/order/order.vue'
 import User from '../pages/user/user.vue'
-import ShopView from '../pages/shop/shopView.vue'
+import ShopDetails from '../pages/shop/shopDetails.vue'
 import HomeView from '../components/homeview.vue'
 import Login from "../pages/login/login"
 
@@ -19,7 +19,7 @@ export default new Router({
     },
     //一级页面
     {
-      path: '/home',
+      path: '/home', 
       name: 'Home',
       component: Home,
       children:[
@@ -28,7 +28,7 @@ export default new Router({
           component:HomeView
         },
         {
-          path: '/order:id',
+          path: '/order',
           name: 'Order',
           component: Order
         },
@@ -45,9 +45,9 @@ export default new Router({
       component:Login
     },
     {
-      path:'/shop',
+      path:'/shop:sid', //从home.vue中传递选中商铺的sid给 shopDetails.vue商铺详情页
       name:'Shop',
-      component:ShopView
+      component:ShopDetails
     }  
   ]
 })
