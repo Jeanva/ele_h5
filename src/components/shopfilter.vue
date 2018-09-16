@@ -155,7 +155,6 @@ $select_color:#333;
     }
     .select{
     color:$select_color;
-    
     }
     .chooseOn{
     color:$selected_color;
@@ -173,6 +172,7 @@ $select_color:#333;
     ul,ul li{
         display: block;
         clear: both;
+        font-size:0.9rem;
         list-style: none;
         text-indent: 1.5rem;
         padding:.5rem 0;

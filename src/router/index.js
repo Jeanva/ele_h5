@@ -8,6 +8,7 @@ import User from '../pages/user/user.vue'
 import ShopDetails from '../pages/shop/shopDetails.vue'
 import HomeView from '../components/homeview.vue'
 import Login from "../pages/login/login"
+import Reg from "../pages/login/reg"
 
 Vue.use(Router)
 
@@ -45,7 +46,12 @@ export default new Router({
       component:Login
     },
     {
-      path:'/shop:sid', //从home.vue中传递选中商铺的sid给 shopDetails.vue商铺详情页
+      path:'/reg',
+      name:'reg',
+      component:Reg
+    },
+    {
+      path:'/shop:sid', //从shopView.vue中传递选中商铺的sid给 shopDetails.vue商铺详情页
       name:'Shop',
       component:ShopDetails
     }  

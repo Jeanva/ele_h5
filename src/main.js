@@ -12,7 +12,20 @@ import FooterView from './components/footerView.vue'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
+// import { Toast } from 'mint-ui';
+
 import { Swipe, SwipeItem } from 'mint-ui';
+Vue.use(Mint);
+
+Vue.component(SwipeItem.name, SwipeItem);
+
+Vue.component(Swipe.name,Swipe) // 注册mintUI组件
+
+Vue.component("HeaderView",HeaderView);
+Vue.component("FooterView",FooterView);
+
+// import "./lib/mui/css/mui.css"
+// import './lib/mui/css/icons-extra.css'
 
 //过滤器 ： 配送时间
 Vue.filter('time_delivery',function(val){
@@ -27,17 +40,21 @@ Vue.filter('fee_delivery',function(val){
   var fee = (val/100+1).toFixed(1);
   return `￥${fee}元`;
 })
-Vue.component(Swipe.name, Swipe);
-Vue.component(SwipeItem.name, SwipeItem);
-
-Vue.use(Mint);
-Vue.component(Swipe.name,Swipe) // 注册mintUI组件
-
-Vue.component("HeaderView",HeaderView);
-Vue.component("FooterView",FooterView);
-
-// import "./lib/mui/css/mui.css"
-// import './lib/mui/css/icons-extra.css'
+//过滤器：订单时间
+Vue.filter('date_time',function(val){
+  var actual_date = val.toLocalString();
+  return `${actual_date}`;
+});
+//过滤器：订单 食品数组
+Vue.filter('fooditems',function(str){
+    if(str.length>0)
+    {
+      // var s=str.match(/\",\"/g);
+      var s = str.split(',')
+      str=str.slice(0,str.indexOf(','));
+      return str+" 等"+s.length+'件商品';
+    }
+});
 
 Vue.config.productionTip = false
 

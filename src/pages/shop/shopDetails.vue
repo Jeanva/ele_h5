@@ -3,7 +3,7 @@
         <div class='shop_bg'>
             <div class='shop_logo'><img :src="shop.sh_logo" alt=""></div>
             <span class='shop_title'>{{shop.sh_name}}</span>
-            <span>评论{{shop.rate}} 月售{{shop.sold_month}} 蜂鸟专送约{{shop.distance}}</span>
+            <span class='shop_rate'>评价{{shop.star}} 月售{{shop.sold_month}} 蜂鸟专送约{{shop.distance}}</span>
             <div class='disc_note'>
                 <span class='act_dis'>
                     <div class="discount">
@@ -312,6 +312,10 @@ $bg_color:#fff;
         font-size:18px;
         font-weight: 600;
         padding:10px 0;
+    }
+    .shop_rate{
+        color:#666;
+        line-height: 1.6rem;
     }
     .disc_note{
         width:78%;
