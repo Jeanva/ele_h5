@@ -34,18 +34,21 @@
                     <div class='rec_list'>
                         <ul>
                             <li v-for='i in recom_food'>
-                                <img :src="i.f_img_md" alt="">
+                                <div class="f_img">
+                                    <img :src="i.f_img_md" alt="">
+                                </div>
                                 <p class='rec_title'>{{i.f_name}}</p>
                                 <p class='rec_soldout'>月售{{i.sold_count}} 好评率100%</p>
                                 <div class='buy_rec'>
                                     <div>
                                         <span class='price_rec'>{{i.min_p}} </span><span class='rec_base_price'>起</span>
                                     </div>
-                                    <span class='action_rec_btn'>
+                                    <!-- <span class='action_rec_btn'>
                                         <a href="#"><span class='del_rec'>-</span></a>
                                         <span class='buy_count'>1</span>
                                         <a href="#"><span class='add_rec'>+</span></a>
-                                    </span>
+                                    </span> -->
+                                    <counter :item="i"></counter>
                                 </div>
                             </li>
                         </ul>
@@ -93,83 +96,29 @@
                                                 <span class='sale_base'>起</span>
                                                 <del class='old_price'>{{i.old_price}}</del>
                                             </span>
-                                            <div class='active_btn'>
-                                                <div class='del_cart'><a href='#'>-</a></div>
-                                                <span>1</span>
-                                                <div class='add_cart'><a href="#">+</a></div>
-                                            </div>
+                                            <!-- <div class='active_btn'>
+                                                <div class='del_cart'><a v-show='i.count' @click='delCart(i)'>-</a></div>
+                                                <span>{{i.count}}</span>
+                                                <div class='add_cart'><a @click="addCart(i)">+</a></div>
+                                            </div> -->
+                                            <counter :item='i'></counter>
                                         </section>
                                     </section>
                                 </div>
                             </dd>
-                            
-                        <dt>
-                            <strong class='sort_tag'>热销</strong>
-                            <span>大家都喜欢2</span>
-                        </dt>
-                            <dd>
-                                <div class='food_show'>
-                                    <span class="food_img"> <img src="../../assets/logo.png" alt=""></span>
-                                    <section class='food_info'>
-                                        <p class='food_name'>世界杯单人套餐</p>
-                                        <p class='food_sub'>每份锅贴配1包酱包，可加醋加辣，加盐加糖</p>
-                                        <p class='food_sub'><span>月售3690份</span><span>好评率99%</span></p>
-                                        <div class='food_act'>
-                                            <span>每份限1份优惠</span>
-                                            <span class='rest'>剩10份</span>
-                                        </div>
-                                        <section>
-                                            <span class='price'>
-                                                <span>10</span>
-                                                <span class='sale_base'>起</span>
-                                                <del class='old_price'>51</del>
-                                            </span>
-                                            <div class='active_btn'>
-                                                <div class='del_cart'><a href='#'>-</a></div>
-                                                <span>1</span>
-                                                <div class='add_cart'><a href="#">+</a></div>
-                                            </div>
-                                        </section>
-                                    </section>
-                                </div>
-                            </dd>
-                            <dd>
-                                <div class='food_show'>
-                                    <span class="food_img"> <img src="../../assets/logo.png" alt=""></span>
-                                    <section class='food_info'>
-                                        <p class='food_name'>世界杯单人套餐</p>
-                                        <p class='food_sub'>每份锅贴配1包酱包，可加醋加辣，加盐加糖</p>
-                                        <p class='food_sub'><span>月售3690份</span><span>好评率99%</span></p>
-                                        <div class='food_act'>
-                                            <span>每份限1份优惠</span>
-                                            <span class='rest'>剩10份</span>
-                                        </div>
-                                        <section>
-                                            <span class='price'>
-                                                <span>10</span>
-                                                <span class='sale_base'>起</span>
-                                                <del class='old_price'>51</del>
-                                            </span>
-                                            <div class='active_btn'>
-                                                <div class='del_cart'><a href='#'>-</a></div>
-                                                <span>1</span>
-                                                <div class='add_cart'><a href="#">+</a></div>
-                                            </div>
-                                        </section>
-                                    </section>
-                                </div>
-                            </dd>
+                        <!-- 食品分类 -->
+                        <section v-for="(item,index) in food_sort" >
                             <dt>
-                            <strong class='sort_tag'>热销</strong>
-                            <span>大家都喜欢3</span>
-                        </dt>
-                            <dd>
+                                <strong class='sort_tag'>{{item}}</strong>
+                                <span>大家都喜欢2</span>
+                            </dt>
+                            <dd v-for="i in sub_food_sort[index]">
                                 <div class='food_show'>
-                                    <span class="food_img"> <img src="../../assets/logo.png" alt=""></span>
+                                    <span class="food_img"> <img :src="i.f_img_sm" alt=""></span>
                                     <section class='food_info'>
-                                        <p class='food_name'>世界杯单人套餐</p>
-                                        <p class='food_sub'>每份锅贴配1包酱包，可加醋加辣，加盐加糖</p>
-                                        <p class='food_sub'><span>月售3690份</span><span>好评率99%</span></p>
+                                        <p class='food_name'>{{i.f_name}}</p>
+                                        <p class='food_sub'>{{i.f_desc}}</p>
+                                        <p class='food_sub'><span>月售{{i.sold_count}}份</span><span>好评率{{i.good_rate}}%</span></p>
                                         <div class='food_act'>
                                             <span>每份限1份优惠</span>
                                             <span class='rest'>剩10份</span>
@@ -185,10 +134,14 @@
                                                 <span>1</span>
                                                 <div class='add_cart'><a href="#">+</a></div>
                                             </div>
+                                            
                                         </section>
                                     </section>
                                 </div>
                             </dd>
+                            </section>
+                            
+                            
                         </dl>
                         </div>
                     </section>
@@ -203,6 +156,7 @@
         </mt-tab-container>
 
         <footer>
+            <!-- 购物车展开状态 -->
             <div class='order_list_fold'>
                 <div class='requirement'>还差<span class='highlight'>1</span>元</div>
                 <div class='clear_cart'>
@@ -219,20 +173,27 @@
                     <div class='food_box_fee'>餐盒</div>
                 </div>
             </div>
+            <!-- 购物车默认收起状态 -->
             <div class='cart'>
-                <div class='cart_img my_car'></div>
+                <div class='cart_img my_car'><div v-show='cart_item'><span>{{cart_item}}</span></div></div>
                 <div class='price_fee'>
-                    <p class='order_item'>未选购商品</p>
+                    <p class='order_item' v-if='!cart_item'>未选购商品</p>
+                    <p v-else='cart_item.length'>{{cart_item}}</p>
                     <p class='fee'>另需配送费3.8元</p>
                 </div>
                 <a class='pay_order'>￥20起送</a>
             </div>
+            
         </footer>
     </div>
 </template>
 
 <script>
 import {base64} from 'js-base64';
+import Vue from 'vue';
+import counter from "../../components/counter.vue";
+import BScroll from "better-scroll"
+
 export default {
     data(){
         return{
@@ -240,18 +201,27 @@ export default {
             selected:'1',
             target:'烧烤',
             food_sort:[],
+            sub_food_sort:[],
             recom_food:[],
             // list:['花生','瓜子','矿泉水','啤酒','饮料','小板凳'],
             //从首页shoplist 传来的值
             id:this.$route.params.id,
             shop:'',
             foodlist:[],
+            // cart_item:[],   //购物车中商品
         }
     },
     created(){
-        // console.log(this.id);
         this.getShopInfo(this.id);
         this.foodList(this.id);
+    },
+    mounted(){
+        console.log('$store.state',this.$store.state);
+    },
+    computed:{
+        cart_item(){
+            return this.$store.state.cart_item;
+        }
     },
     methods:{
         // loadMore() {
@@ -268,7 +238,6 @@ export default {
             var url =`http://127.0.0.1:3001/home/shoplist?id=`+id;
             this.$http.get(url).then(result=>{
                 if(result.body.code==1){
-                    console.log(result.body.msg);
                     this.shop = result.body.msg[0];
                 }
             })
@@ -277,18 +246,56 @@ export default {
             var url =`http://127.0.0.1:3001/foodlist?id=`+id;
             this.$http.get(url).then(result=>{
                 if(result.body.code==1){
-                    console.log('foodlist',result.body.msg);
+                    // console.log('foodlist',result.body.msg);
                     this.foodlist=this.foodlist.concat(result.body.msg);
                     
                     for(var i in this.foodlist){
-                        this.food_sort.push(this.foodlist[i].f_sort);   //把数据中的 食品分类 添加到数组中
+                    //     //三元运算
+                    //     this.food_sort.includes(this.foodlist[i].f_sort)?"":
+                    //     this.food_sort.push(this.foodlist[i].f_sort);   //把数据中的 食品分类 添加到数组中,并且去重
                         if(this.foodlist[i].is_recom)
                         this.recom_food.push(this.foodlist[i]);    //添加到 本店推荐 数组中
                     }
-                    console.log('recom',this.recom_food);
+                    this.showBysort();
                 }
             })
+        },
+        showBysort(){
+            console.log('食物列表foodlist',this.foodlist);
+            for(var i in this.foodlist){
+                //food_sort=['类名1','类名2','类名3'];
+                //sub_food_sort=[[{},{}],[{},{}],[{},{}]],
+                var now_sort= this.foodlist[i].f_sort;  //获得当前元素的f_sort
+                // console.log("now_sort",now_sort);
+                var sort_len = this.food_sort.length;           //目前 food_sort元素个数
+                var sub_len = this.sub_food_sort.length;        //目前 sub_food_sort 按类分组数组 元素个数
+                var new_arr= [];            //备用空数组
+                if(this.food_sort.includes(now_sort))               //如果当前分类已存在
+                    {
+                        var sort_index = this.food_sort.indexOf(now_sort);  //则按照分类下标，把对象存进sub_food_sort中
+                        // console.log('已存在分类'+this.food_sort[sort_index]);
+                        // new_arr.push(this.foodlist[i]);
+                        // console.log('new_arr',new_arr);
+                        
+                        this.sub_food_sort[sort_index].push(this.foodlist[i]);
+                        // console.log('push',this.sub_food_sort);
+                    }
+                else {
+                    this.food_sort.push(now_sort);
+                    // console.log('sub_len',sub_len);
+                    
+                    new_arr.push(this.foodlist[i]);
+                    this.sub_food_sort.push(new_arr);
+                    // console.log("新添加分类"+this.food_sort[now_sort]);
+                    // console.log('sub_food_sort:'+this.sub_food_sort);
+                }
+            }
+            // console.log('food_sort:',this.food_sort);
+            // console.log('sub_food_sort--',this.sub_food_sort);
         }
+    },
+    components:{
+        counter
     }
 }
 </script>
@@ -362,10 +369,14 @@ $bg_color:#fff;
             padding-bottom: 4vw;
             width: 34vw;
         }
-        li img{
+        li .f_img{
             background: #f5f5f5;
             width:34vw;
+            height:34vw;
+            line-height: 24vw;
+            overflow: hidden;
         }
+        li .f_img img{object-fit:cover;width:100%;height:100%;}
         .rec_title{
             font-size: .8rem;
         }
@@ -445,6 +456,7 @@ $bg_color:#fff;
             height: 100%;
             overflow-y:auto;
             color:#999;
+            padding:0 0 140px 0;
         }
         .sort_tag{
             color:#666;
@@ -462,9 +474,11 @@ $bg_color:#fff;
             display: flex;
             .food_img{
                 flex:1;
+                width:24vw;
             }
             .food_img img{
-                width:24vw;
+                width:100%;
+                object-fit: cover;
                 border-radius: .5vw;
             }
             .food_info{
@@ -514,6 +528,7 @@ $bg_color:#fff;
             .old_price:before{
                 content:'￥'
             }
+            //计数器开始
             .active_btn{
                 float: right;
                 line-height:1.6rem;
@@ -543,6 +558,7 @@ $bg_color:#fff;
                 color:#3190e8;
                 font-size:2rem;
             }
+            //计数器结束
         }
         
     }
@@ -551,12 +567,12 @@ $bg_color:#fff;
 .order_list_fold,.order_list_expand{
     background: $bg_color;
     position:fixed;
-    bottom:26vw; 
-    left:0;right:0;
+    left:0;
+    right:0;
     bottom:0;
 }
 .order_list_expand{
-    position:fixed;
+    position: fixed;
     bottom:26vw; 
     left:0;
     right:0;
@@ -611,17 +627,18 @@ $bg_color:#fff;
     color:#999;
     display: flex;
     position: fixed;
-    bottom:14vw;
+    bottom:0vw;
     left:0;
     right:0;
     height: 12vw;
     padding-left:21vw;
     .cart_img{
-        background: #3190e8;
         border: 1.333333vw solid #444;
         border-radius: 50%; 
         height:11.333vw;
         width:11.333vw;
+        display: flex;
+        justify-content: center;
         position: absolute;
         left:2.4vw;
         bottom:1vw;
@@ -629,13 +646,34 @@ $bg_color:#fff;
     .my_car{
         background: radial-gradient(circle,#363636 6.266667vw,#444 0);
     }
-    .cart_img:before{
-        background-image:url('../../assets/img/cart.svg'); 
-        background-size:6vw;
+    .cart_img:before{        
         content:'';
         position: absolute;
         top:0;
         left:0;
+    }
+    .cart_img>div{
+        background-image:url('../../assets/img/cart.svg');
+        background-position: center center;
+        background-size:6vw;
+        background-repeat: no-repeat;
+        background-color: #3190e8;
+        border-radius: 50%;
+        color:#fff;
+        text-align: center;
+        width:11.333vw;
+        height:11.333vw;
+    }
+    .cart_img>div>span{
+        background: #f87622;
+        border-radius: 8px;
+        font-size: .6rem;
+        line-height: 16px;
+        position: absolute;
+        left:30px;
+        top:-6px;
+        padding:0 5px;
+        height:16px;
     }
     .price_fee{
         flex: 1;
