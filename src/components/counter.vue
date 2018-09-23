@@ -14,7 +14,6 @@ import Vue from 'vue';
 export default {
     data(){
         return{
-            i_count:0,
         }
     },
     props:['item'],
@@ -32,13 +31,14 @@ export default {
             this.i_count=item.count;
             // console.log('this.i_count',this.i_count);
             this.$store.commit("item_sum");     //计算购物车内商品总件数
-            
+            this.$store.commit("totol_sum");
         },
         delCart(item){
             this.$store.commit('subtract',item);
             // console.log(this.$store.state.f_count);
             item.count--;
             this.$store.commit("item_sum");
+            this.$store.commit("totol_sum");
         },
     }
 }

@@ -69,23 +69,24 @@ var store= new Vuex.Store({
   state:{
     //专门用来保存共享数据，相当于组件data
     //如果在组件中操作 用 this.$store.state.***
-    f_count:[],    //食物数量数组
+    f_count:[],   //食物数量数组
     cart_list:[], //购物车商品数组，商品fid
-    cart_item:0,
+    cart_item:0,  //商品总数量
+    sum:0,        //总价
   },
   mutations:{
     //操作共享数据，只能用mutations提供的方法
     //如果组件要使用mutations定义的方法，只能使用 this.$store.commit('函数名');
     increment(state,i){ 
       //当前商品fid，在cart_list中的索引
-      var tmp_index = state.cart_list.indexOf(i.fid);
-      // console.log('商品购物车中位置',state.cart_list.indexOf(i.fid));
+      var tmp_index = state.cart_list.indexOf(i);
+      // console.log('商品购物车中位置',state.cart_list.indexOf(i));
       
-      if(!state.cart_list.includes(i.fid)){//如果商品未存在于cart_list，
+      if(!state.cart_list.includes(i)){//如果商品未存在于cart_list，
         //则将商品对象加入cart_list
         //并且在f_count对应索引位置添加值
         state.f_count.push(1);
-        state.cart_list.push(i.fid);
+        state.cart_list.push(i);
         
       }else{
         //如果商品已存在，则把f_count对应索引位置的值+1
@@ -93,13 +94,15 @@ var store= new Vuex.Store({
       }      
     },
     subtract(state,i){
-      var tmp_index = state.cart_list.indexOf(i.fid);
+      var tmp_index = state.cart_list.indexOf(i);
       state.f_count[tmp_index]--;
+      
       if(state.f_count[tmp_index]==0){
         //删除商品对象在f_count和cart_list中对应的值
         state.f_count.splice(tmp_index,1);
-        state.cart_list.splice(i,1);
+        state.cart_list.splice(tmp_index,1);
       }
+      
     },
     //计算购物车内商品总件数 cart_item
     item_sum(state){
@@ -111,15 +114,27 @@ var store= new Vuex.Store({
           state.cart_item+=state.f_count[n]
         }
       }
+    },
+    totol_sum(state){
+        let sum =0;
+        state.f_count.forEach((v,i) => {
+          sum+=v*state.cart_list[i].price;
+        });
+        state.sum = sum;
+    },
+    clear_cart(state){
+      state.f_count=[];
+      state.cart_list=[];
+      state.cart_item=0;
     }
   },
-  getters:{
-    //getters只提供数据，不修改数据
-    //在组件模板中 {{this.$store.getters.***}}
-    optCount:function(state){
-        return state.f_count;
-    }
-  }
+  // getters:{
+  //   //getters只提供数据，不修改数据
+  //   //在组件模板中调用 {{this.$store.getters.***}}
+  //   optCount:function(state){
+  //       return state.f_count;
+  //   }
+  // }
 });
 
 /* eslint-disable no-new */

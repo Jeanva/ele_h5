@@ -157,28 +157,35 @@
 
         <footer>
             <!-- 购物车展开状态 -->
+            <div v-show="show_cart" style="top:0;bottom:0;left:0;right:0;position:absolute; z-index:0; background-color:rgba(0,0,0,.5)">
+            </div>
             <div class='order_list_fold'>
                 <div class='requirement'>还差<span class='highlight'>1</span>元</div>
-                <div class='clear_cart'>
-                    <span>已选商品</span> <span><a href=''>清空</a></span>
-                </div>
-                <div>
-                    <ul>
-                        <li>
-                            <span class='order_li'>此处为订单列表元素</span>
-                            <span class='order_account'>1</span>
-                            <span class='order_action'>-1+</span>
-                        </li>
-                    </ul>
-                    <div class='food_box_fee'>餐盒</div>
+                <div v-show="show_cart">
+                    <div class='clear_cart'>
+                        <span>已选商品</span> <span @click="clear_cart">清空</span>
+                    </div>
+                    <div>
+                        <ul>
+                            <li v-for="(i,index) in this.$store.state.cart_list">
+                                <span class='order_li'>{{i.f_name}}</span>
+                                <span class='order_account'>{{cart_f_count[index]}}</span>
+                                <span class='order_action'>-1+</span>
+                                <!-- <counter :item=''></counter> -->
+                            </li>
+                        </ul>
+                        <div class='food_box_fee'>餐盒</div>
+                    </div>
                 </div>
             </div>
+            
+            
             <!-- 购物车默认收起状态 -->
             <div class='cart'>
-                <div class='cart_img my_car'><div v-show='cart_item'><span>{{cart_item}}</span></div></div>
+                <div class='cart_img my_car' @click="showCartList"><div v-show='cart_item'><span>{{cart_item}}</span></div></div>
                 <div class='price_fee'>
                     <p class='order_item' v-if='!cart_item'>未选购商品</p>
-                    <p v-else='cart_item.length'>{{cart_item}}</p>
+                    <p v-else='cart_item.length'>{{cart_item}}  ￥{{total}}</p><!--购物车价格-->
                     <p class='fee'>另需配送费3.8元</p>
                 </div>
                 <a class='pay_order'>￥20起送</a>
@@ -208,7 +215,8 @@ export default {
             id:this.$route.params.id,
             shop:'',
             foodlist:[],
-            // cart_item:[],   //购物车中商品
+            show_cart:false,
+            cart_list:[],
         }
     },
     created(){
@@ -216,11 +224,17 @@ export default {
         this.foodList(this.id);
     },
     mounted(){
-        console.log('$store.state',this.$store.state);
     },
     computed:{
         cart_item(){
+            // this.cart_list = this.$store.state.cart_list;
             return this.$store.state.cart_item;
+        },
+        total(){            
+            return this.$store.state.sum;
+        },
+        cart_f_count(){
+            return this.$store.state.f_count;
         }
     },
     methods:{
@@ -234,6 +248,15 @@ export default {
         //         this.loading = false;
         //     }, 2500);
         // },
+        clear_cart(){
+            this.$store.commit("clear_cart");
+        },
+        showCartList(){
+            if(this.$store.state.f_count.length>0){
+            this.show_cart=!this.show_cart;
+            }
+            else this.show_cart=0;
+        },
         getShopInfo(id){
             var url =`http://127.0.0.1:3001/home/shoplist?id=`+id;
             this.$http.get(url).then(result=>{
@@ -278,7 +301,7 @@ export default {
                         // console.log('new_arr',new_arr);
                         
                         this.sub_food_sort[sort_index].push(this.foodlist[i]);
-                        // console.log('push',this.sub_food_sort);
+                        
                     }
                 else {
                     this.food_sort.push(now_sort);
@@ -286,12 +309,9 @@ export default {
                     
                     new_arr.push(this.foodlist[i]);
                     this.sub_food_sort.push(new_arr);
-                    // console.log("新添加分类"+this.food_sort[now_sort]);
-                    // console.log('sub_food_sort:'+this.sub_food_sort);
+                    
                 }
             }
-            // console.log('food_sort:',this.food_sort);
-            // console.log('sub_food_sort--',this.sub_food_sort);
         }
     },
     components:{
