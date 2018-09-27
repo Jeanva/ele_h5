@@ -9,6 +9,7 @@ import ShopDetails from '../pages/shop/shopDetails.vue'
 import HomeView from '../components/homeview.vue'
 import Login from "../pages/login/login"
 import Reg from "../pages/login/reg"
+import Confirm from "../pages/order/confirm"
 
 Vue.use(Router)
 
@@ -39,7 +40,12 @@ export default new Router({
           component: User
         },
       ]
-    },  
+    }, 
+    {
+      path:'/confirm',
+      name:'confirm',
+      component:Confirm
+    },
     {
       path:'/login',
       name:'login',

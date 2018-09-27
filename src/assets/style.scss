@@ -207,3 +207,15 @@ $bg_color:#fff;
         }
     }
 }
+
+//shopDetail.vue
+@import './shopDetail.scss';
+
+//user.vue
+@import './user.scss';
+
+// reg.vue  login.vue
+@import './reg_login.scss';
+
+//confirm.vue订单确认样式
+@import './order_confirm.scss';

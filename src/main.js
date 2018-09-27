@@ -126,6 +126,7 @@ var store= new Vuex.Store({
       state.f_count=[];
       state.cart_list=[];
       state.cart_item=0;
+      // state.
     }
   },
   // getters:{

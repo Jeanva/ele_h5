@@ -3,7 +3,7 @@
         <transition name="fade">
             <div class='del_cart' v-show='item.count'><div  @click='delCart(item)'>-</div></div>
         </transition>
-        <span v-show="item.count">{{item.count}}</span>
+        <span v-show="item.count">{{itemCount}}</span>
         <div class='add_cart'><div @click="addCart(item)">+</div></div>
     </div>
 </template>
@@ -17,10 +17,14 @@ export default {
         }
     },
     props:['item'],
+    computed:{
+        itemCount(){
+            return this.item.count;
+        }
+    },
     methods:{
         addCart(item){
             this.$store.commit('increment',item);    //改变状态里的f_count，购物车内商品数量
-            
             //记录单个商品的数量和值
             if(!item.count){
                 Vue.set(item,'count',1);
@@ -28,8 +32,7 @@ export default {
             else{
                 item.count++;
             }
-            this.i_count=item.count;
-            // console.log('this.i_count',this.i_count);
+            console.log(item,item.count);
             this.$store.commit("item_sum");     //计算购物车内商品总件数
             this.$store.commit("totol_sum");
         },
