@@ -1,5 +1,6 @@
 <template>
     <div>
+        <HeaderView :ptitle='pageTitle'></HeaderView>
         <div class='shop_bg'>
             <div class='shop_logo'><img :src="shop.sh_logo" alt=""></div>
             <span class='shop_title'>{{shop.sh_name}}</span>

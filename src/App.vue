@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header-view ></header-view>
+    <!-- <header-view :ptitle='address'></header-view> -->
     <router-view/>
   </div>
 </template>
@@ -12,7 +12,8 @@ export default {
   data(){
     return {
       // selected:'tab-container1',
-      // ptitle:'饿了么'
+      // ptitle:'饿了么',
+      address:'长城逸府'
     }
   },
   components:{

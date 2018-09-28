@@ -1,13 +1,19 @@
 <template>
     <div class="homeview">
+        
         <div class='search'>
-            <mt-search v-model="value">
-                <mt-cell
-                    v-for="item in result"
-                    :title="item.title"
-                    :value="item.value">
-                </mt-cell>
-            </mt-search>
+            <div class='index-address'>
+                地址
+            </div>
+            <div :class='searchBarFixed==true?"searchFixed":""'>
+                <mt-search v-model="value" id='searchView' >
+                    <mt-cell
+                        v-for="item in result"
+                        :title="item.title"
+                        :value="item.value">
+                    </mt-cell>
+                </mt-search>
+            </div>
         </div>
         
         <SortImg :icons='icon'></SortImg>
@@ -48,7 +54,8 @@ export default {
             bannerlist:[],
             icon:[],
             mdImg:[],
-            shoplist:[]
+            shoplist:[],
+            searchBarFixed:false,
         }
     },
     created(){
@@ -57,7 +64,27 @@ export default {
         this.getImgs('subbanner');
         this.getShoplist();
     },
+    mounted(){
+        window.addEventListener('scroll',this.handleScroll);
+    },
+    destroyed(){
+        window.removeEventListener("scroll",this.handleScroll);
+    },
     methods:{
+        //监听滚动事件
+        handleScroll(){
+            var scrollTop=window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop;
+            console.log(scrollTop);
+            var offsetTop= document.querySelector("#searchView").offsetTop; //#searchView距离顶部的偏移量
+            if(scrollTop > offsetTop){
+                this.searchBarFixed = true;
+                console.log(this.searchBarFixed);
+            }
+            else{
+                this.searchBarFixed = false;
+                console.log(this.searchBarFixed);
+            }
+        },
         //获取banner
         getBanners(){
             var url =`http://127.0.0.1:3001/home/banner`;
@@ -139,6 +166,16 @@ export default {
 
 <style lang='scss'>
 $bg_color:#fff;
+.searchFixed{   //搜索固定
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index: 1;
+}
+.index-address{
+    background-image:linear-gradient(190deg,#0af,#0085ff);
+}
 .recommend_shop{
     background: $bg_color;
     display:block;

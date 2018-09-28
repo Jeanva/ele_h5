@@ -1,8 +1,7 @@
 <template>
     <div>
-        
         <!-- 统一头部 -->
-        <!-- <HeaderView :ptitle='pageTitle'></HeaderView> -->
+        <HeaderView :ptitle='pageTitle'></HeaderView>
         <router-view></router-view>        
         <FooterView></FooterView>
     </div>
@@ -40,6 +39,7 @@ export default {
                 this.loading = false;
             }, 2500);
         },
+        
     //    main_log(val) {
     //         console.log('main_log', val);
     //     },

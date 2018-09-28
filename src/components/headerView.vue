@@ -1,8 +1,9 @@
 <template>
+    
     <div class='my_header'>
         <mt-header fixed :title="ptitle">
             <router-link to="/" slot="left">
-                <mt-button icon="back">返回</mt-button>
+                <mt-button icon="back" v-show='showBack'>返回</mt-button>
                 <mt-button v-show='showClose'>关闭</mt-button>
             </router-link>
             <mt-button icon="more" slot="right"></mt-button>
@@ -12,10 +13,13 @@
 
 <script>
 export default {
-    props:['ptitle','showClose'],
+    props:['ptitle','showBack','showClose'],
     data(){
         return {
         }
+    },
+    methods:{
+        
     }
 }
 </script>
