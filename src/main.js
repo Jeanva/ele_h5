@@ -73,6 +73,7 @@ var store= new Vuex.Store({
     cart_list:[], //购物车商品数组，商品fid
     cart_item:0,  //商品总数量
     sum:0,        //总价
+    sub_food_list:[], //按组分类
   },
   mutations:{
     //操作共享数据，只能用mutations提供的方法

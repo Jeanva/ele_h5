@@ -3,7 +3,7 @@
         
         <div class='search'>
             <div class='index-address'>
-                地址
+                长城逸府
             </div>
             <div :class='searchBarFixed==true?"searchFixed":""'>
                 <mt-search v-model="value" id='searchView' >
@@ -166,15 +166,26 @@ export default {
 
 <style lang='scss'>
 $bg_color:#fff;
+.homeview{
+    margin-top: -60px;
+}
 .searchFixed{   //搜索固定
     position: fixed;
     top:0;
     left:0;
     right:0;
     z-index: 1;
+    .mint-search{
+        height:auto;
+    }
 }
 .index-address{
-    background-image:linear-gradient(190deg,#0af,#0085ff);
+    background-image:linear-gradient(90deg,#0af,#0085ff);
+    color:#fff;
+    font-weight: 600;
+    height:50px;
+    line-height:50px;
+    padding:0 3vw;
 }
 .recommend_shop{
     background: $bg_color;

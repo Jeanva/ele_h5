@@ -1,0 +1,73 @@
+.pay_container{
+    margin-top:60px;
+    background: $bg_color;
+    section{
+        text-align: center;
+        padding:3vh 0;
+        margin:0 4vw;
+        border-bottom:1px solid #ddd;
+    }
+    .pay_time_txt{
+        font-size:.9rem;
+        color:#999;
+        line-height:2rem;
+    }
+    .pay_time{
+        font-size:2rem;
+        font-weight: 600;
+    }
+    .other_pay{
+        background: #f2f2f2;
+        padding:2vh 4vw 1vh;
+    }
+    .pay_flex{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        overflow-y:auto;
+        line-height:8vh;
+        margin:0 4vw;
+    }
+    .payments:not(:last-child){
+        border-bottom:1px solid #ddd;
+    }
+    .choose_on{
+        padding-top:20px; 
+    }
+    .pay_button{
+    padding:2vh 4vw;     
+    }
+    .payments{
+        // flex:3 1;
+        display: box;
+    }
+}
+.recipt_com{
+    display: flex;
+    flex-direction: column;
+    box-flex:3;
+    line-height: 1rem;
+    padding:16px 0 ;
+    .recipt_code,.tax_code{
+        font-size:.6rem;
+        padding:.5rem 0 0;
+    }
+    .tax_code{
+        color:red;
+    }
+}
+.com_title{
+    font-weight:600;
+}
+.com_title::before{
+    border:1px solid #1196EE;
+    border-radius: 4px;
+    content:'单位';
+    color:#1196EE;
+    font-size:.6rem;
+    padding:0 2px;
+    margin:-.5rem .5rem 0 0 ;
+}
+.recipt_info{
+    box-flex:3;
+}

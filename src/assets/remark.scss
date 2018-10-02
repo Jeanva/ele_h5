@@ -1,0 +1,39 @@
+.remark_container{
+    background: $bg_color;
+    color:#666;
+    margin-top:70px;
+    padding:0 4vw 4vw;
+    section{
+        margin:4vw 0;
+        padding:4vw 0 0;
+    }
+    textarea{
+        background: #f9f9f9;
+        border:1px solid #ccc;
+        border-radius: 2px;
+        height:16vh;
+        width:87vw;
+        padding:2vw 2vw;
+        box-sizing: content-box;
+        resize: none;
+    }
+    .remark_tag{
+        border:1px solid #ddd;
+        border-radius: 4px;
+        display:inline-block;
+        margin:0 2.6vw 2.6vw 0;
+        // height: 8vw;
+    }
+    .rmk_default{
+        height:8vw;
+        font-size:.8rem;
+        line-height: 8vw;
+        padding:2vw 2vw;
+        margin:0 0 ;
+    }
+    .rmk_default:nth-child(2){
+        border-left:1px solid #ddd;
+        border-right:1px solid #ddd;
+    }
+    
+}

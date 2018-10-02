@@ -20,18 +20,24 @@ $bg_color:#fff;
     border-right:1px solid #ccc;
 }
 .search{
-    margin-top:-20px;
+    display: block;
     clear:both;
     height:52px;
 }
-.search:after{
-    display:block;
-    clear:both;
-    content:"";
-    visibility:hidden;
-    height:0
-}
-
+// .search:after{
+//     display:block;
+//     clear:both;
+//     content:"";
+//     visibility:hidden;
+//     height:0
+// }
+.fengniao{
+    background: #1196EE;
+    border-radius: 2px;
+    font-size:$font-ad;
+    color:#fff;
+    float: right;
+    }
 .shop_row{
     background: $bg_color;
     .shop_cell{
@@ -104,13 +110,7 @@ $bg_color:#fff;
         .soldout{
             font-size:.26rem;
         }
-        .fengniao{
-            background: #1196EE;
-            border-radius: 2px;
-            font-size:$font-ad;
-            color:#fff;
-            float: right;
-            }
+
 .discount,.delivery_fee,.distance{
     display: inline;
     font-size: $font-1;
@@ -197,7 +197,7 @@ $bg_color:#fff;
     border:none;
     padding:0 0 0 .2rem;
 }
-.act_list div:not(:first-child) {
+.act_list div:nth-child(n+3) {
     display: none;
 }
 .collapse{
@@ -207,7 +207,10 @@ $bg_color:#fff;
         }
     }
 }
-
+.mint-button--green{
+    background-color:#4cd964;
+    color:#fff;
+}
 //shopDetail.vue
 @import './shopDetail.scss';
 
@@ -219,3 +222,9 @@ $bg_color:#fff;
 
 //confirm.vue订单确认样式
 @import './order_confirm.scss';
+
+//remark.vue 订单备注样式
+@import './remark.scss';
+
+//pay.vue
+@import './pay.scss';

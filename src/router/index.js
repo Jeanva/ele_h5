@@ -10,6 +10,9 @@ import HomeView from '../components/homeview.vue'
 import Login from "../pages/login/login"
 import Reg from "../pages/login/reg"
 import Confirm from "../pages/order/confirm"
+import Remark from "../pages/order/remark"
+import Pay from "../pages/order/pay"
+import Recipt from '../pages/order/recipt'
 
 Vue.use(Router)
 
@@ -45,6 +48,21 @@ export default new Router({
       path:'/confirm',
       name:'confirm',
       component:Confirm
+    },
+    {
+      path:'/remark',
+      name:'remark',
+      component:Remark
+    },
+    {
+      path:'/pay',
+      name:'pay',
+      component:Pay
+    },
+    {
+      path:'/recipt',
+      name:'recitp',
+      component:Recipt
     },
     {
       path:'/login',

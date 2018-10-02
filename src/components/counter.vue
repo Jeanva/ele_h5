@@ -22,6 +22,9 @@ export default {
             return this.item.count;
         }
     },
+    updated(){
+        console.log('updated',this.item.count);
+    },
     methods:{
         addCart(item){
             this.$store.commit('increment',item);    //改变状态里的f_count，购物车内商品数量

@@ -13,7 +13,7 @@
                 <section>温馨提示：未注册饿了么账号的手机号，登录时将自动注册，且代表您已同意
                     <router-link to="#" class="service">《用户服务协议》</router-link>
                 </section>
-                <mt-button type="primary" size="large" @click='user_register'>注册</mt-button>
+                <mt-button type="green" size="large" @click='user_register'>注册</mt-button>
             
             <router-link to="#">登录</router-link>
         </div>

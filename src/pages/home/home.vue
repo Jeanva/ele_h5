@@ -1,7 +1,7 @@
 <template>
     <div>
         <!-- 统一头部 -->
-        <HeaderView :ptitle='pageTitle'></HeaderView>
+        <!-- <HeaderView :ptitle='pageTitle'></HeaderView> -->
         <router-view></router-view>        
         <FooterView></FooterView>
     </div>

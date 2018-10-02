@@ -19,9 +19,7 @@
             <mt-tab-item id="1">点餐</mt-tab-item>
             <mt-tab-item id="2">评论</mt-tab-item>
             <mt-tab-item id="3">商家</mt-tab-item>
-        </mt-navbar>
-
-        
+        </mt-navbar>        
         
         <!-- tab-container -->
         <mt-tab-container v-model="selected">
@@ -196,7 +194,7 @@ import BScroll from "better-scroll"
 export default {
     data(){
         return{
-            ptitle:"商铺",
+            pageTitle:"商铺",
             selected:'1',
             target:'烧烤',
             food_sort:[],   //食品类别
@@ -255,6 +253,7 @@ export default {
             }
             return 0
         },
+        
     },
     methods:{
         // loadMore() {
@@ -271,7 +270,12 @@ export default {
             this.$store.commit("clear_cart");
             this.show_cart = false;
             this.sub_food_sort=[];
-            console.log('sub_food_sort',this.sub_food_sort);
+            for(var i of this.foodlist){
+                
+                if(i.count){
+                    i.count=0;
+                }
+            }
         },
         showCartList(){
             if(this.$store.state.f_count.length>0){

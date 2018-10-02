@@ -35,6 +35,7 @@ $bg_color:#fff;
 .sortImg{
     display: block;
     justify-content: space-around;
+    margin-top:52px;
 }
 .sortImg div{
     background: $bg_color;
