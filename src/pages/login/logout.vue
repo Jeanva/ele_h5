@@ -6,9 +6,9 @@
 <script>
 export default {
     created(){
-        console.log(sessionStorage);
-        sessionStorage.clear();
-        console.log(sessionStorage);
+        // console.log(sessionStorage);
+        sessionStorage.clear();     //清除登录
+        // console.log(sessionStorage);
     }
 }
 </script>

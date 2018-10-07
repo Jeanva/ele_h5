@@ -100,7 +100,7 @@
                     <div class='price_fee'>
                         <p class='order_item' >￥{{this.$store.state.sum}}</p>
                     </div>
-                    <div class="pay_order_active" @click='payOrder()'>去支付</div>
+                    <div class="pay_order_active" @click='payOrder'>去支付</div>
                 </div>
             </div>
 <!--             
@@ -119,15 +119,18 @@ export default {
             pageTitle:'支付',
             cart_list:[],
             due_time:null,
+            o_date:null,
             uname:'',
+            uid:null,
             phone_num:null,
         }
     },
     created(){
         console.log('sum',this.$store.state.sum);
         console.log('cart_list',this.$store.state.cart_list);
-        console.log(sessionStorage);
+        // console.log(sessionStorage);
         this.getOrderTime();
+        this.getSendInfo();
         this.getUserInfo();
     },
     methods:{
@@ -135,31 +138,40 @@ export default {
             if(sessionStorage){
                 this.uname=sessionStorage.uname;
                 this.phone_num = sessionStorage.p_num;
+                this.uid= sessionStorage.uid;
             }
         },
         getOrderTime(){
             let order_time = new Date();    //下单时间
+            this.o_date = order_time.toLocaleString();
+            console.log(order_time,this.o_date);
             let dueTime =order_time.getTime()+1800*1000;  //下单时间30分钟后时间戳
             let tmp_time = new Date(dueTime);                   //获得目标时间
             this.due_time = tmp_time.getHours()+":"+tmp_time.getMinutes();
         },
         getSendInfo(){
-            this.$store.state.cart_list.forEach(function(value,index,cart_list){
+            //给服务器准备数据，sid,fid,price,sum,size
+            this.$store.state.cart_list.forEach(
+                function(value,index){
                 console.log('value',value);
-                //var tmp_v = {};//空对象
-                var {fid,price,size}=value;
-                console.log('fid,price,size',fid,price,size);
+                // var tmp_v = {};//空对象
+                var {fid,price,size,sid}=value;
+                console.log('fid,price,size',fid,price,size,sid);
                 // this.cart_list.push({"fid":fid,"price":price,"size":size});
-                cart_list.push({"fid":fid,"price":price,"size":size});
-                console.log(cart_list);
-            });
-            console.log('this.cart_list,getSendInfo',this.cart_list);
+                }
+                
+            );
+            
         },
         payOrder(){
-            var url='http://127.0.0.1:3001/orderpay';
-            this.$http.post(url,{cart_list:this.cart_list},{emulateJSON:true})
-            .then(res=>{
-                console.log('发送完毕'+res);
+            console.log('触发提交');
+            var url='http://127.0.0.1:3001/orderpay/';
+            var obj = {cart_list:this.cart_list,o_date:this.o_date,uid:this.uid};
+            // console.log(obj,'obj.cart_list类型',obj.cart_list.constructor===Array);
+            this.$http.post(url,obj,{emulateJSON:true})
+            .then(result=>{
+                if(result.body.code==1)
+                console.log('发送完毕',result.body.msg);
             });
         }
     }

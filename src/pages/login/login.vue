@@ -45,6 +45,7 @@ export default {
                     });
                     // console.log(result.body.msg)
                     sessionStorage.isLogin =1;
+                    sessionStorage.uid = result.body.msg[0].uid;
                     sessionStorage.uname = result.body.msg[0].uname;
                     sessionStorage.p_num = result.body.msg[0].phone_num;
                     this.$router.push('/Home');
