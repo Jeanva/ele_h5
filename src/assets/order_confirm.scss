@@ -1,112 +1,159 @@
 $font_color:rgba(255,255,255,.8);
 .confirm_container{
     background-image:linear-gradient(0deg,#f5f5f5,#f5f5f5 55%,hsla(0,0%,96%,.3) 75%,hsla(0,0%,96%,0)),linear-gradient(270deg,#0085ff,#0af);
-    height:100vh;
-    padding-bottom:100px;
-    .con_process{
-        padding:2vh 1vh;
+    // height:100vh;
+    // padding-bottom:30px;
+    overflow: auto;
+}
+.con_process{
+    padding:2vh 1vh;
+}
+.cart{
+    padding-left: 0;
+}
+.price_fee{
+    flex:2;
+    text-indent:1rem;
+}
+.order_address{
+    color:$font_color;
+    font-size:.9rem;
+    padding:0 .5rem;
+}
+.address_big{
+    color:#fff;
+    font-size:1.4rem;
+    font-weight:600;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width:80%;
+}
+.address_big::after{
+    top:90px;
+    left:88vw;
+    z-index:2;
+    content:'';
+    position: absolute;
+    width:8px;
+    height:8px;
+    border-top:1px solid #fff;
+    border-right:1px solid #fff;
+    transform:rotate(45deg);
+    -webkit-transform:translate(1.45rem, -.45rem) rotate(45deg) ;
+}
+.order_item{
+    color:$bg-color;
+    padding:.4em 0 0 ;
+}
+.food_name{
+    flex:2.5;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.food_count,.food_price{
+    flex:1;
+    text-align:right;
+}
+.package::before{
+    content:'包装';
+    font-size:.3rem;
+    color:#8395ae;
+    border:2px solid rgba(131,149,174,.34);
+    border-top:none;
+    border-bottom:none;
+    background: rgba(149,168,193,.14);
+    margin-right:2vw;
+}
+.shop_owner::before,.man_disct::before{
+    content:'商家';
+    background: $elm_blue;
+    color:$bg_color;
+    font-size:.3rem;
+    margin-right:2vw;
+    padding:0 2px 0 2px;
+}
+.man_disct::before{
+    background-color: rgb(240, 115, 115);
+    color:$font_color;
+    content:"满减";
+}
+.pay_dlvy{
+    background:$bg_color;
+    padding:0 4.4vw;
+    margin:1vh 0;
+    .dlvy{
+        display:flex;
+        justify-content: space-between;
+        align-items: center;
+        padding:14px 0px;
+        font-size:.86rem;
+        img{
+            padding: 0 2vw 0 0 ;
+            width:8vw;
+        }
     }
-    .cart{
-        padding-left: 0;
+    .dlvy:not(:first-child){
+        border-top: 1px solid #eee;
     }
-    .price_fee{
-        flex:2;
-        text-indent:1rem;
+    .dlvy .blue_link{
+        color:#2395ff;
     }
-    .order_address{
-        color:$font_color;
-        font-size:.9rem;
-        padding:0 .5rem;
+    .order_content>.dlvy{
+        font-size:.86rem;
     }
-    .address_big{
-        color:#fff;
-        font-size:1.4rem;
-        font-weight:600;
-        text-overflow:ellipsis;
-        white-space: nowrap;
-        overflow: hidden;
-        width:80%;
+    .font-right{
+        line-height: 1.2rem;
+        text-align: right;
     }
-    .address_big::after{
-        top:90px;
-        left:88vw;
-        z-index:2;
-        content:'';
-        position: absolute;
-        width:8px;
-        height:8px;
-        border-top:1px solid #fff;
-        border-right:1px solid #fff;
-        transform:rotate(45deg);
-        -webkit-transform:translate(1.45rem, -.45rem) rotate(45deg) ;
+    .order_sum{
+        font-size:1.5rem;
     }
-    .order_item{
-        color:$bg-color;
-        padding:.4em 0 0 ;
-    }
-    .con_invalid{
-        
+    .red_pocket{
+        color:$bg_color;
+        font-size:.8rem;
+        height:1.2rem;
+        line-height: 1.2rem;
+        padding:0 1vw;
+        background-image: linear-gradient(106deg,#ff7417,#ff3c15);
     }
     
-    .pay_dlvy{
-        background:$bg_color;
-        padding:0 4.4vw;
-        margin:1vh 0;
-        .dlvy{
-            display:flex;
-            justify-content: space-between;
-            align-items: center;
-            padding:14px 0px;
-            font-size:.94rem;
-            img{
-            width:4vw;
-            }
-        }
-        .dlvy:not(:first-child){
-            border-top: 1px solid #eee;
-        }
-        .dlvy .blue_link{
-            color:#2395ff;
-        }
-        .order_content>.dlvy{
-            font-size:.86rem;
-        }
-        .order_sum{
-            font-size:1.5rem;
-        }
-        .red_pocket{
-            color:#fff;
-            font-size:.8rem;
-            height:1.2rem;
-            line-height: 1.2rem;
-            padding:0 1vw;
-            background-image: linear-gradient(106deg,#ff7417,#ff3c15);
-        }
-        
-        .shop_branch{
-            font-weight: 600;
-        }
-        .shop_branch>span.branch{
-            color:#2c3e50; 
-            font-size:.9rem; 
-            font-weight: normal;  
-        }
-        .fn_delivery{
-            display: flex;
-            flex-direction:column;
-            div{
-                text-align: center;
-            }
-        }
-        .fn_tag{
-            background:#2395ff;
-            color:#fff;
+    .shop_branch{
+        font-weight: 600;
+    }
+    .shop_branch>span.branch{
+        color:#2c3e50; 
+        font-size:.9rem; 
+        font-weight: normal;  
+    }
+    .fn_delivery{
+        display: flex;
+        flex-direction:column;
+        div{
+            text-align: center;
         }
     }
-    .member{
-        border-left:1px solid goldenrod;
-        margin:16px 0;
+    .fn_tag{
+        background:#2395ff;
+        color:#fff;
     }
+}
+.member{
+    border-left:1px solid goldenrod;
+    margin:16px 0;
+}
+.info_desc::after{
+    content:"?";
+    border:1px solid #ccc;
+    border-radius: 50%;
+    display: inline-block;
+    font-size:.4rem;
+    height:.8rem;
+    width:.8rem;
+    text-align: center;
+    line-height:.9rem;
+    margin-left:.3rem;
 }
 .grey_notice{
     color:#ccc;

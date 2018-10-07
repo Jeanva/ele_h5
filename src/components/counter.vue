@@ -41,7 +41,6 @@ export default {
         },
         delCart(item){
             this.$store.commit('subtract',item);
-            // console.log(this.$store.state.f_count);
             item.count--;
             this.$store.commit("item_sum");
             this.$store.commit("totol_sum");

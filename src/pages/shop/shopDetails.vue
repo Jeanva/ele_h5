@@ -1,6 +1,6 @@
 <template>
     <div>
-        <HeaderView :ptitle='pageTitle'></HeaderView>
+        <HeaderView :ptitle='pageTitle' showBack='true'></HeaderView>
         <div class='shop_bg'>
             <div class='shop_logo'><img :src="shop.sh_logo" alt=""></div>
             <span class='shop_title'>{{shop.sh_name}}</span>
@@ -40,13 +40,9 @@
                                 <p class='rec_soldout'>月售{{i.sold_count}} 好评率100%</p>
                                 <div class='buy_rec'>
                                     <div>
-                                        <span class='price_rec'>{{i.min_p}} </span><span class='rec_base_price'>起</span>
+                                        <span class='price_rec'>{{i.price}} </span>
+                                        <!-- <span class='rec_base_price'>起</span> -->
                                     </div>
-                                    <!-- <span class='action_rec_btn'>
-                                        <a href="#"><span class='del_rec'>-</span></a>
-                                        <span class='buy_count'>1</span>
-                                        <a href="#"><span class='add_rec'>+</span></a>
-                                    </span> -->
                                     <counter :item="i"></counter>
                                 </div>
                             </li>
@@ -91,8 +87,8 @@
                                         </div>
                                         <section>
                                             <span class='price'>
-                                                <span>{{i.min_p}}</span>
-                                                <span class='sale_base'>起</span>
+                                                <span>{{i.price}}</span>
+                                                <!-- <span class='sale_base'>起</span> -->
                                                 <del class='old_price'>{{i.old_price}}</del>
                                             </span>
                                             
@@ -150,7 +146,10 @@
             <div v-show="show_cart" style="top:0px;bottom:0;left:0;right:0; position:fixed; background-color:rgba(0,0,0,.5)">
             </div>
             <div class='order_list_fold' >
-                <div class='requirement'>还差<span class='highlight'>{{shop.min_price}}</span>元</div>
+                <div class='requirement'>
+                    <div v-if='show_discount'>还差<span class='highlight'>{{show_discount}}</span>元</div>
+                    <div v-else>已减满{{shop.manjian}},再买<span class='highlight'>{{discount}}</span>元减20元</div>
+                </div>
                 <div v-show="show_cart">
                     <div class='clear_cart'>
                         <span>已选商品</span> <span @click="clear_cart">清空</span>
@@ -160,8 +159,9 @@
                             <li v-for="(i,index) in this.$store.state.cart_list">
                                 <span class='order_li'>{{i.f_name}}</span>
                                 <span class='order_account'>{{cart_f_count[index] * i.price}}</span>
-                                <span class='order_action'>-1+</span>
-                                <!-- <counter :item=''></counter> -->
+                                <span class='order_action'>
+                                    <counter :item='i'></counter>
+                                </span>
                             </li>
                         </ul>
                         <div class='food_box_fee'>餐盒</div>
@@ -171,16 +171,17 @@
             
             <!-- 购物车默认收起状态 -->
             <div class='cart'>
-                <div class='cart_img my_car' @click="showCartList"><div v-show='cart_item'><span>{{cart_item}}</span></div></div>
+                <div class='cart_img my_car' @click="showCartList">
+                    <div v-show='cart_item'><span>{{cart_item}}</span></div>
+                </div>
                 <div class='price_fee'>
-                    <p class='order_item' v-if='!cart_item'>未选购商品</p>
-                    <p v-else='cart_item.length'>{{cart_item}}  ￥{{total}}</p><!--购物车价格-->
+                    <p class='no_item' v-if='!cart_item'>未选购商品</p>
+                    <p v-else-if='cart_item.length' class='snow_font'>￥{{total}}</p><!--购物车价格-->
                     <p class='fee'>另需配送费3.8元</p>
                 </div>
-                <div class='pay_order' v-if="!cart_item">￥20起送</div>
-                <div class="pay_order_active" v-else-if='cart_item'>去结算</div>
+                <div class='pay_order' v-if="canPay">￥20起送</div>
+                <div class="pay_order_active" v-else-if='!canPay' @click='gotoConfirm'>去结算</div>
             </div>
-            
         </footer>
     </div>
 </template>
@@ -210,6 +211,7 @@ export default {
             listHeight:[],//列表高度
             scrollY:0,  //时时获得当前y的高度
             clickEvent:false,
+            canPay:false
         }
     },
     created(){
@@ -225,11 +227,32 @@ export default {
     computed:{
         //商品总数量
         cart_item(){
-            // this.cart_list = this.$store.state.cart_list;
             return this.$store.state.cart_item;
         },
         total(){            
             return this.$store.state.sum;
+        },
+        //显示满减
+        show_discount(){
+            if(this.shop.min_price>this.total){
+                this.canPay = true;
+                return this.shop.min_price-this.total
+            }else{
+                this.canPay = false;
+            }
+        },
+        discount(){
+            console.log('满减',this.shop.manjian);
+            var manjian = [];
+            manjian = this.shop.manjian.split('');
+            manjian = manjian.slice(2,-2);
+            var tmpstr = manjian.join();
+            manjian = tmpstr.split('');
+            console.log(manjian);
+            // for(var i of this.shop.manjian){
+            //     // console.log(i,this.shop.manjian[i]);
+            // }
+            return this.shop.manjian
         },
         cart_f_count(){
             return this.$store.state.f_count;
@@ -237,7 +260,6 @@ export default {
         tmp_shop_sort(){
             return this.food_sort;
         },
-
         currentIndex(){
             for(let i =0;i<this.listHeight.length;i++){
                 let height = this.listHeight[i];
@@ -266,12 +288,14 @@ export default {
         //         this.loading = false;
         //     }, 2500);
         // },
+        gotoConfirm(){
+            this.$router.push({name:'confirm'});
+        },
         clear_cart(){
             this.$store.commit("clear_cart");
             this.show_cart = false;
             this.sub_food_sort=[];
             for(var i of this.foodlist){
-                
                 if(i.count){
                     i.count=0;
                 }
@@ -284,7 +308,7 @@ export default {
             else this.show_cart=0;
         },
         getShopInfo(id){
-            var url =`http://127.0.0.1:3001/home/shoplist?id=`+id;
+            var url =`http://127.0.0.1:3001/shop?id=`+id;
             this.$http.get(url).then(result=>{
                 if(result.body.code==1){
                     this.shop = result.body.msg[0];

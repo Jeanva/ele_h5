@@ -12,7 +12,7 @@
                 <router-link to="#" class="service">《用户服务协议》</router-link>
             </section>
             <mt-button type="primary" size="large" @click='user_login'>登录</mt-button>
-            <router-link to="#">关于我们</router-link>
+            <router-link to="/reg">注册</router-link>
         </div>
     </div>
 </template>
@@ -43,23 +43,20 @@ export default {
                         message:"登录成功",
                         duration:2000
                     });
-                    console.log(result.body.msg)
+                    // console.log(result.body.msg)
                     sessionStorage.isLogin =1;
                     sessionStorage.uname = result.body.msg[0].uname;
                     sessionStorage.p_num = result.body.msg[0].phone_num;
-                    console.log(sessionStorage);
-                    console.log("登录成功");
                     this.$router.push('/Home');
                 }
+                else if(result.body.code == 0){
+                    this.$toast(result.body.msg);
+                }
                 else{
-                    // this.$toast("用户名或密码错误");
-                    console.log("用户名或密码错误");
+                    this.$toast("用户名或密码错误");
                 }
             });
         },
-        user_register(){
-            
-        }
     }
 }
 </script>

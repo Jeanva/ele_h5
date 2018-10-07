@@ -292,7 +292,8 @@ $bg_color:#fff;
     text-align: right;
 }
 .order_action{
-    flex:3
+    flex:3;
+    padding-top: .9rem;
 }
 .requirement{
     background:#fffad6;
@@ -372,14 +373,14 @@ $bg_color:#fff;
         padding:0 5px;
         height:16px;
     }
+    .snow_font{
+        color:$bg_color;
+    }
     .price_fee{
-        flex: 1;
+        flex: 2;
         font-size:1rem;
         line-height: normal;
-        padding:1vw 0 0 0;
-    }
-    .order_item{
-        
+        padding:1vw 0 0 15vw;
     }
     .fee{
         font-size:.4rem;

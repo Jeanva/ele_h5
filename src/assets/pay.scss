@@ -52,22 +52,25 @@
         font-size:.6rem;
         padding:.5rem 0 0;
     }
-    .tax_code{
-        color:red;
-    }
+}
+.red_font,.tax_code{
+    color:red;
 }
 .com_title{
     font-weight:600;
 }
 .com_title::before{
-    border:1px solid #1196EE;
+    border:1px solid $elm_blue;
     border-radius: 4px;
     content:'单位';
-    color:#1196EE;
+    color:$elm_blue;
     font-size:.6rem;
     padding:0 2px;
     margin:-.5rem .5rem 0 0 ;
 }
 .recipt_info{
     box-flex:3;
+}
+.pay_button{
+    padding:4vw;
 }

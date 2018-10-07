@@ -1,7 +1,9 @@
 $font-1:.23rem;
 $font-ad:.16rem;
 $font-color1:#999;
+$dark_grey:#666;
 $bg_color:#fff;
+$elm_blue:#1196EE;
 .arrow,.arrow_gray{
     display: flex;
     justify-content: space-between;
@@ -228,3 +230,6 @@ $bg_color:#fff;
 
 //pay.vue
 @import './pay.scss';
+
+//status.vue
+@import './status.scss';

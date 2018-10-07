@@ -1,15 +1,16 @@
 <template>
     <div class="login_reg">
+        <!-- <HeaderView :ptitle='pageTitle' showBack='true'></HeaderView> -->
         <div class='logo'><img src="../../assets/img/elmlogo.png" alt=""></div>
         
         <div class="login_form">
             
                 <div class='msg_verify'>短信登录</div>
                 <div class='phonenumber'>
-                    <input type="text" placeholder="手机号" v-model='p_num' maxlength="11" >
+                    <input type="text" placeholder="手机号" v-model='p_num' maxlength="11" @blur="checkInput" >
                     <router-link to="#" class="msg_vrfct">获取验证码</router-link>
                 </div>
-                <input type='password'  placeholder="验证码" v-model='upwd'>
+                <input type='password'  placeholder="验证码" v-model='upwd' @blur="checkPwd">
                 <section>温馨提示：未注册饿了么账号的手机号，登录时将自动注册，且代表您已同意
                     <router-link to="#" class="service">《用户服务协议》</router-link>
                 </section>
@@ -24,6 +25,8 @@
 export default {
     data(){
         return{
+            pageTitle:"登录注册",
+            showBack:true,
             p_num:'',
             upwd:''
         }
@@ -46,11 +49,17 @@ export default {
                     .then( 
                         res=>{
                             if(res.body.code==1){   //当前手机号码首次注册
+
                                 console.log("注册成功");
                                 console.log(res.body.msg);
+                                this.$toast("注册成功！");
+                                setInterval(()=>{
+                                this.$router.push('/user');
+                                },3000)
                             }
                             else if(res.body.code == 0){    //当前手机号码已注册
                                 console.log("该手机号码已注册");
+                                this.$toast("该手机号码已注册");
                                 console.log(res.body.msg);
                             }
                             sessionStorage.isLogin =1;
@@ -58,7 +67,7 @@ export default {
                             sessionStorage.p_num = res.body.msg[0].phone_num;
                         }
                         );
-            this.$router.push('/user');
+            
         }
         // user_login(){
         //     var url='http://127.0.0.1:3001/login?phone_num='+this.p_num+'&upwd='+this.upwd;

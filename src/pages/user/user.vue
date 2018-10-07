@@ -7,7 +7,7 @@
             </div>
             <!-- 未登录时显示 -->
             <div v-show="!isLogin">
-                <router-link class='register' to='/reg'>登录/注册</router-link>
+                <router-link class='register' to='/login'>登录/注册</router-link>
                 <p class='priv'>
                     <img src='../../assets/img/phone.svg'>
                     登录后享受更多特权
