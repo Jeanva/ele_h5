@@ -22,7 +22,7 @@ export default {
         getSeleted:function(){
             //逆向传值，将参数传递给父级组件
             this.$emit('change',this.tid);
-            this.$router.push('/'+this.tid);
+            // this.$router.push('/'+this.tid);
         }
     }
 }

@@ -15,6 +15,8 @@ import Remark from "../pages/order/remark"
 import Pay from "../pages/order/pay"
 import Recipt from '../pages/order/recipt'
 import Status from '../pages/order/status'
+import userinfo from '../pages/user/userinfo'
+import test from '../pages/test'
 
 Vue.use(Router)
 
@@ -42,10 +44,27 @@ export default new Router({
         {
           path: '/user',
           name: 'User',
-          component: User
+          component: User,
+          // children:[
+          //   {
+          //     path:'/userinfo',
+          //     name:'userinfo',
+          //     component:userinfo
+          //   },
+          // ]
         },
       ]
     }, 
+    {
+      path:'/test',
+      name:'test',
+      component:test
+    },
+    {
+      path:'/userinfo',
+      name:'userinfo',
+      component:userinfo
+    },
     { //确认支付
       path:'/confirm',
       name:'confirm',
@@ -81,6 +100,7 @@ export default new Router({
       name:'logout',
       component:Logout
     },
+    
     {
       path:'/reg',
       name:'reg',

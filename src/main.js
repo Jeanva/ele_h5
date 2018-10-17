@@ -8,8 +8,8 @@ Vue.use(VueResource);
 Vue.http.options.root = "http://127.0.0.1:3001";
 
 import HeaderView from './components/headerView.vue'
-import FooterView from './components/footerView.vue'
-
+// import FooterView from './components/footerView.vue'
+import Tabbar from './components/tabbar.vue'
 import Mint from 'mint-ui'
 import 'mint-ui/lib/style.css'
 
@@ -24,7 +24,8 @@ Vue.component(SwipeItem.name, SwipeItem);
 Vue.component(Swipe.name,Swipe) // 注册mintUI组件
 
 Vue.component("HeaderView",HeaderView);
-Vue.component("FooterView",FooterView);
+// Vue.component("FooterView",FooterView);
+Vue.component("Tabbar",Tabbar);
 
 // import "./lib/mui/css/mui.css"
 // import './lib/mui/css/icons-extra.css'

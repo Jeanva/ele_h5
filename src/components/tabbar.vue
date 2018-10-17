@@ -1,6 +1,5 @@
 <template>
     <div class='tabbar'>
-        <router-view></router-view>
         <Item txt='首页' tid='home' :sel='selected' @change='sendValue'>
             <img src="../assets/img/elm_active.svg" alt="" slot='active_img' />
             <img src="../assets/img/elm_normal.svg" alt="" slot='normal_img' />
@@ -40,13 +39,12 @@ export default {
         sendValue:function(val){
             console.log('val',val);
             // 从子组件传递过来的值，改为当前选中项
+            this.$router.push('/'+val);
             this.selected=val;
         }
     }
 }
 </script>
-
-
 <style>
 /* tabbar 固定下方 */
 .tabbar{

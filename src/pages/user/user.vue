@@ -2,9 +2,9 @@
     <div id='box'>
         <HeaderView :ptitle='pageTitle'></HeaderView>
         <div class='login '>
-            <div>
+            <router-link to='/userinfo'>
                 <div class='logo_elm'><img src="../../assets/img/elm.svg" alt=""></div>
-            </div>
+            </router-link>
             <!-- 未登录时显示 -->
             <div v-show="!isLogin">
                 <router-link class='register' to='/login'>登录/注册</router-link>
@@ -98,9 +98,9 @@
     </div>
 </template>
 <script>
-import Header from '../../components/header'
-import Card from '../../components/usercard'
-import HeaderView from '../../components/headerView'
+// import Header from '../../components/header'
+// import Card from '../../components/usercard'
+// import HeaderView from '../../components/headerView'
 
 export default {
     data (){
@@ -120,9 +120,9 @@ export default {
         this.p_num = sessionStorage.p_num
     },
     components:{
-        Header,
-        Card,
-        HeaderView
+        // Header,
+        // Card,
+        // HeaderView
     }
 }
 </script>
